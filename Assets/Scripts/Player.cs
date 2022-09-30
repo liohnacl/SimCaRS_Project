@@ -40,6 +40,7 @@ public class Player : MonoBehaviour
 
     private void GetInput()
     {
+        // if(this.gameObject.transform.position.x>RoadSpawner.leftSide || this.gameObject.transform.position.x<RoadSpawner.rightSide){
         horizontalInput = Input.GetAxis(HORIZONTAL);
         verticalInput = Input.GetAxis(VERTICAL);
         isBreaking = Input.GetKey(KeyCode.Space);
@@ -79,9 +80,10 @@ public class Player : MonoBehaviour
     private void UpdateSingleWheel(WheelCollider wheelCollider, Transform wheelTransform)
     {
         Vector3 pos;
-        Quaternion rot
-;       wheelCollider.GetWorldPose(out pos, out rot);
+        Quaternion rot;       
+        wheelCollider.GetWorldPose(out pos, out rot);
         wheelTransform.rotation = rot;
+        // pos.x= Mathf.Clamp(pos.x + horizontalInput, -0.2f, 9.3f);
         wheelTransform.position = pos;
     }
     public void OnTriggerEnter(Collider other){
