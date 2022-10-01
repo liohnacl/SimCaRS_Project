@@ -6,8 +6,8 @@ public class TestCameraController : MonoBehaviour
 {
     private Transform player;
 
-    private float yOffset = 5f;
-    private float zOffset = -15f;
+    private float yOffset = 10f;
+    private float zOffset = -20f;
 
     // Start is called before the first frame update
     void Start()
