@@ -35,6 +35,7 @@ public class Player : MonoBehaviour
         HandleMotor();
         HandleSteering();
         UpdateWheels();
+        
     }
 
 
