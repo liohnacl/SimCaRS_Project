@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class CarControl : MonoBehaviour
 {
-    public SpawnManager spawnManager;
+   
     private const string HORIZONTAL = "Horizontal";
     private const string VERTICAL = "Vertical";
 
@@ -93,7 +93,5 @@ public class CarControl : MonoBehaviour
         // pos.x= Mathf.Clamp(pos.x + horizontalInput, -0.2f, 9.3f);
         wheelTransform.position = pos;
     }
-    public void OnTriggerEnter(Collider other){
-        spawnManager.SpawnTriggerEntered();
-    }
+   
 }
