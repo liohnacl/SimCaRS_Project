@@ -7,15 +7,18 @@ TagManager:
   - Wall
   - Checkpoint
   - Vehicle
+  - Civilian
+  - Roadblock
+  - Trafficlight
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Wall
   - Water
   - UI
   - Vehicle
-  - 
+  - Checkpoint
   - 
   - 
   - 

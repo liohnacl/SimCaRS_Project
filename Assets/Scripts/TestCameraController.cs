@@ -12,7 +12,7 @@ public class TestCameraController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        player = GameObject.Find("Player").transform;
+        player = GameObject.Find("CarDriver").transform;
         
     }
 
