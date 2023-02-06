@@ -47,7 +47,7 @@ public class Player : MonoBehaviour
     public void speedLimiter()
     {
         body = GetComponent<Rigidbody>();
-        body.velocity = Vector3.ClampMagnitude(body.velocity, 7f);
+        body.velocity = Vector3.ClampMagnitude(body.velocity, 5f);
     }
 
     public void SetInputs(float forwardAmount, float turnAmount, float isBraking)
