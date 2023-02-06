@@ -4,6 +4,7 @@ using UnityEngine;
 using Unity.MLAgents;
 using Unity.MLAgents.Actuators;
 using Unity.MLAgents.Sensors;
+using UnityEditor;
 
 public class CarAgentAI : Agent {
 
@@ -27,13 +28,14 @@ public class CarAgentAI : Agent {
 
     private void TrackCheckpoints_OnCarWrongCheckpoint(object sender, TrackCheckpoints.CarCheckpointEventArgs e) {
         if (e.carTransform == transform) {
-            AddReward(-1f);
+            AddReward(-0.2f * rb.velocity.magnitude);
+            EndEpisode();
         }
     }
 
     private void TrackCheckpoints_OnCarCorrectCheckpoint(object sender, TrackCheckpoints.CarCheckpointEventArgs e) {
         if (e.carTransform == transform) {
-            AddReward(1f);
+            AddReward(0.2f * rb.velocity.magnitude);
         }
     }
 
@@ -49,6 +51,12 @@ public class CarAgentAI : Agent {
         Vector3 checkpointForward = trackCheckpoints.GetNextCheckpoint(transform).transform.forward;
         float directionDot = Vector3.Dot(transform.forward, checkpointForward);
         sensor.AddObservation(directionDot);
+
+        sensor.AddObservation(rb.velocity.magnitude);
+        if (rb.velocity.magnitude > 1f)
+        {
+            AddReward(0.05f);
+        }
     }
 
     public override void OnActionReceived(ActionBuffers actions) {
@@ -57,13 +65,12 @@ public class CarAgentAI : Agent {
         float turnAmount = 0f;
         float isBraking = 0f;
 
-        AddReward(-0.01f);
-
         switch (actions.DiscreteActions[0])
         {
             case 0: forwardAmount = 0f; break;
             case 1: forwardAmount = +1f; break;
             case 2: isBraking = +1f; break;
+            case 3: forwardAmount = -1f; break;
         }
         switch (actions.DiscreteActions[1])
         {
@@ -81,6 +88,8 @@ public class CarAgentAI : Agent {
 
 
         player.SetInputs(forwardAmount, turnAmount, isBraking);
+
+
     }
 
     public override void Heuristic(in ActionBuffers actionsOut) {
@@ -102,29 +111,18 @@ public class CarAgentAI : Agent {
     }
 
     private void OnCollisionEnter(Collision collision) {
+        float speed = rb.velocity.magnitude;
         if (collision.gameObject.tag == "Wall") {
             // Hit a Wall
-            AddReward(-1);
+            AddReward(-0.2f * speed);
+            //EndEpisode();
             Debug.Log("Hit wall");
-            //SetReward(0f);
-            // EndEpisode();
             
         }
         else if(collision.gameObject.tag=="Civilian"){
-            AddReward(-1);
+            AddReward(-0.5f * speed);
+            EndEpisode();
             Debug.Log("Hit Civilian");
-        }
-        else if(collision.gameObject.tag=="Vehicle"){
-            AddReward(-1);
-            Debug.Log("Hit other vehicle");
-        }
-        else if(collision.gameObject.tag=="Trafficlight"){
-            AddReward(-1);
-            Debug.Log("Hit Traffic Light");
-        }
-        else if(collision.gameObject.tag=="Roadblock"){
-            AddReward(-1);
-            Debug.Log("Hit a Road Block");
         }
 
     }
@@ -132,35 +130,13 @@ public class CarAgentAI : Agent {
     private void OnCollisionStay(Collision collision) {
         if (collision.gameObject.tag == "Wall") {
             // Hit a Wall
-            AddReward(-1f);
+            AddReward(-0.01f);
+            Debug.Log("Hit Wall");
             
         }
          else if(collision.gameObject.tag=="Civilian"){
-            AddReward(-1);
+            AddReward(-0.05f);
             Debug.Log("Hit Civilian");
         }
-        else if(collision.gameObject.tag=="Vehicle"){
-            AddReward(-1);
-            Debug.Log("Hit other vehicle");
-        }
-        else if(collision.gameObject.tag=="Trafficlight"){
-            AddReward(-1);
-            Debug.Log("Hit Traffic Light");
-        }
-        else if(collision.gameObject.tag=="Roadblock"){
-            AddReward(-1);
-            Debug.Log("Hit a Road Block");
-        }
-
     }
-
-    private void FixedUpdate()
-    {
-        
-        if (rb.velocity.sqrMagnitude <= 0)
-        {
-            AddReward(-0.01f);
-        }
-    }
-
 }

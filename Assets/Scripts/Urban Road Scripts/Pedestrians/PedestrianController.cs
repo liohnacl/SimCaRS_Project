@@ -66,5 +66,25 @@ public class PedestrianController : MonoBehaviour
         reachedDestination = false;
     }
 
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.tag == "Player")
+        {
+            movementSpeed = 0;
+        }
+    }
+
+    private void OnCollisionStay(Collision collision)
+    {
+        if (collision.gameObject.tag == "Player")
+        {
+            movementSpeed = 0;
+        }
+    }
+
+    private void OnCollisionExit(Collision collision)
+    {
+        movementSpeed = UnityEngine.Random.Range(0.8f, 2f);
+    }
 
 }
