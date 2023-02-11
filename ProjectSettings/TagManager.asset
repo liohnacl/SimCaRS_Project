@@ -4,12 +4,21 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - Wall
-  - Checkpoint
   - Vehicle
   - Civilian
   - Roadblock
   - Trafficlight
+  - Goal
+  - Road
+  - RoadLane
+  - StopLane
+  - Checkpoint
+  - Wall
+  - Trafficlight_Post
+  - Trafficlighthitbox
+  - TrafficlightboxRed
+  - TrafficlightboxYellow
+  - TrafficlightboxGreen
   layers:
   - Default
   - TransparentFX
@@ -22,14 +31,14 @@ TagManager:
   - Roadblock
   - Civilian
   - Trafficlight
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Road
+  - RoadLane
+  - Stoplane
+  - Trafficlight_Post
+  - Goal
+  - TrafficlighthitboxRed
+  - TrafficlighthitboxYellow
+  - TrafficlighthitboxGreen
   - 
   - 
   - 
